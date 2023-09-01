@@ -20,67 +20,67 @@ The Stock Portfolio Tracker is a web-based application that allows users to mana
 
 ## API Endpoints
 
-| Endpoint                     | Method | Description                                | Example                                       |
-| ---------------------------- | ------ | ------------------------------------------ | --------------------------------------------- |
-| `/api/auth/register`         | POST   | Register a new user account.               | `{ "username": "john_doe", "email": "john@example.com", "password": "securePassword123" }` |
-| `/api/auth/login`            | POST   | Log in with an existing user account.      | `{ "email": "john@example.com", "password": "securePassword123" }` |
-| `/api/portfolio`             | GET    | Get the user's portfolio with stock holdings and performance data. | N/A                                           |
-| `/api/portfolio/add`         | POST   | Add a stock to the user's portfolio.       | `{ "symbol": "AAPL", "quantity": 10 }`       |
-| `/api/portfolio/remove`      | POST   | Remove a stock from the user's portfolio.  | `{ "symbol": "AAPL" }`                        |
-| `/api/stocks/:symbol`        | GET    | Get real-time stock data for a specific stock symbol. | N/A                                           |
-| `/api/stocks/search?query=`  | GET    | Search for stocks by symbol or name.       | `/api/stocks/search?query=AAPL`              |
-| `/api/portfolio/analyze`     | GET    | Analyze the diversification of the user's portfolio. | N/A                                           |
-| `/api/portfolio/history`     | GET    | Get historical performance data for the user's portfolio. | N/A                                           |
-| `/api/user/profile`          | GET    | Get the user's profile information.        | N/A                                           |
-| `/api/user/profile`          | PUT    | Update the user's profile information.     | `{ "firstName": "John", "lastName": "Doe" }` |
-| `/api/user/settings`         | GET    | Get user account settings.                 | N/A                                           |
-| `/api/user/settings`         | PUT    | Update user account settings.              | `{ "notification": true, "theme": "dark" }`  |
-| `/api/portfolio/buy`         | POST   | Buy stocks and add them to the portfolio.  | `{ "symbol": "GOOG", "quantity": 5 }`        |
-| `/api/portfolio/sell`        | POST   | Sell stocks from the portfolio.            | `{ "symbol": "AAPL", "quantity": 3 }`        |
-| `/api/portfolio/transactions` | GET    | Get a list of all portfolio transactions.  | N/A                                           |
-| `/api/portfolio/transactions/:id` | GET | Get details of a specific transaction.     | N/A                                           |
-| `/api/news`                  | GET    | Fetch the latest financial news.            | N/A                                           |
-| `/api/notifications`         | GET    | Get user notifications.                    | N/A                                           |
-| `/api/notifications`         | POST   | Create a new notification.                 | `{ "message": "New stock added." }`          |
-| `/api/notifications/:id`     | DELETE | Delete a specific notification.           | N/A                                           |
-| `/api/watchlist`             | GET    | Get the user's stock watchlist.            | N/A                                           |
-| `/api/watchlist/add`         | POST   | Add a stock to the user's watchlist.       | `{ "symbol": "TSLA" }`                       |
-| `/api/watchlist/remove`      | POST   | Remove a stock from the watchlist.         | `{ "symbol": "TSLA" }`                       |
-| `/api/settings`              | GET    | Get application settings.                  | N/A                                           |
-| `/api/settings`              | PUT    | Update application settings.               | `{ "currency": "USD", "theme": "light" }`   |
-| `/api/portfolio/stats`       | GET    | Get overall portfolio statistics.          | N/A                                           |
-| `/api/portfolio/dividends`   | GET    | Get dividend income for the portfolio.     | N/A                                           |
-| `/api/portfolio/roi`         | GET    | Get return on investment for the portfolio.| N/A                                           |
-| `/api/stocks/recommendations` | GET   | Get stock recommendations based on user preferences. | N/A                                |
-| `/api/stocks/history/:symbol` | GET   | Get historical stock data for a specific symbol. | N/A                                       |
-| `/api/stocks/news/:symbol`   | GET   | Get news related to a specific stock.      | N/A                                           |
-| `/api/portfolio/alerts`      | GET    | Get portfolio alerts and notifications.   | N/A                                           |
-| `/api/portfolio/alerts`      | POST   | Create a new portfolio alert.             | `{ "symbol": "AAPL", "targetPrice": 150 }`   |
-| `/api/portfolio/alerts/:id`  | PUT    | Update a portfolio alert.                 | `{ "targetPrice": 160 }`                     |
-| `/api/portfolio/alerts/:id`  | DELETE | Delete a portfolio alert.                 | N/A                                           |
-| `/api/stocks/compare`        | POST   | Compare multiple stocks' performance.     | `{ "symbols": ["AAPL", "GOOG", "TSLA"] }`    |
-| `/api/stocks/symbols`        | GET    | Get a list of available stock symbols.    | N/A                                           |
-| `/api/portfolio/strategies`   | GET    | Get recommended investment strategies based on user preferences. | N/A                     |
-| `/api/portfolio/strategies/:id` | GET  | Get details of a specific investment strategy. | N/A                                             |
-| `/api/portfolio/strategies`   | POST   | Create a custom investment strategy.       | `{ "name": "My Strategy", "description": "A custom investment strategy", "assets": ["AAPL", "GOOG"] }` |
-| `/api/portfolio/strategies/:id` | PUT  | Update a custom investment strategy.       | `{ "name": "Updated Strategy", "description": "An updated custom investment strategy" }` |
-| `/api/portfolio/strategies/:id` | DELETE | Delete a custom investment strategy.     | N/A                                           |
-| `/api/transactions`           | GET    | Get a list of all user transactions (buy/sell orders). | N/A                                           |
-| `/api/transactions/:id`       | GET    | Get details of a specific transaction.     | N/A                                           |
-| `/api/transactions/buy`       | POST   | Create a buy order for a stock.           | `{ "symbol": "AAPL", "quantity": 5 }`        |
-| `/api/transactions/sell`      | POST   | Create a sell order for a stock.          | `{ "symbol": "AAPL", "quantity": 3 }`        |
-| `/api/transactions/:id`       | DELETE | Cancel a pending transaction.             | N/A                                           |
-| `/api/alerts`                  | GET    | Get user-specific alerts and notifications. | N/A                                          |
-| `/api/alerts/:id`              | GET    | Get details of a specific alert.           | N/A                                          |
-| `/api/alerts`                  | POST   | Create a new alert or notification.       | `{ "type": "price", "symbol": "AAPL", "targetPrice": 150 }` |
-| `/api/alerts/:id`              | PUT    | Update an existing alert.                 | `{ "type": "price", "targetPrice": 160 }`   |
-| `/api/alerts/:id`              | DELETE | Delete an alert or notification.          | N/A                                          |
-| `/api/transactions/history`    | GET    | Get historical transaction data.           | N/A                                          |
-| `/api/transactions/history/:id` | GET  | Get historical data for a specific transaction. | N/A                                      |
-| `/api/user/logout`             | POST   | Log the user out and invalidate the session. | N/A                                          |
-| `/api/user/forgot-password`    | POST   | Request a password reset email.            | `{ "email": "john@example.com" }`           |
-| `/api/user/reset-password`     | POST   | Reset the user's password with a valid reset token. | `{ "token": "valid_token", "password": "newPassword123" }` |
-| `/api/user/change-password`    | PUT    | Change the user's password.                | `{ "currentPassword": "oldPassword123", "newPassword": "newPassword123" }` |
+| Endpoint                     | Method | Description                                | Example Request                                | Example Response                                |
+| ---------------------------- | ------ | ------------------------------------------ | ----------------------------------------------- | ----------------------------------------------- |
+| `/api/auth/register`         | POST   | Register a new user account.               | `{ "username": "john_doe", "email": "john@example.com", "password": "securePassword123" }` | `{"message": "User registered successfully"}` |
+| `/api/auth/login`            | POST   | Log in with an existing user account.      | `{ "email": "john@example.com", "password": "securePassword123" }` | `{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...}` |
+| `/api/portfolio`             | GET    | Get the user's portfolio with stock holdings and performance data. | N/A | `{"portfolio": {...}, "stocks": [...], "performance": {...}}` |
+| `/api/portfolio/add`         | POST   | Add a stock to the user's portfolio.       | `{ "symbol": "AAPL", "quantity": 10 }`       | `{"message": "Stock added to the portfolio"}` |
+| `/api/portfolio/remove`      | POST   | Remove a stock from the user's portfolio.  | `{ "symbol": "AAPL" }`                        | `{"message": "Stock removed from the portfolio"}` |
+| `/api/stocks/:symbol`        | GET    | Get real-time stock data for a specific stock symbol. | N/A | `{"symbol": "AAPL", "name": "Apple Inc.", "price": 150.25, "lastUpdated": "2023-09-01T12:00:00Z"}` |
+| `/api/stocks/search?query=`  | GET    | Search for stocks by symbol or name.       | `/api/stocks/search?query=AAPL`              | `{"results": [...], "totalResults": 5}` |
+| `/api/portfolio/analyze`     | GET    | Analyze the diversification of the user's portfolio. | N/A | `{"diversificationScore": 85}` |
+| `/api/portfolio/history`     | GET    | Get historical performance data for the user's portfolio. | N/A | `{"history": [...], "startDate": "2023-01-01", "endDate": "2023-09-01"}` |
+| `/api/user/profile`          | GET    | Get the user's profile information.        | N/A | `{"username": "john_doe", "email": "john@example.com", "firstName": "John", "lastName": "Doe"}` |
+| `/api/user/profile`          | PUT    | Update the user's profile information.     | `{ "firstName": "John", "lastName": "Doe" }` | `{"message": "Profile updated successfully"}` |
+| `/api/user/settings`         | GET    | Get user account settings.                 | N/A | `{"currency": "USD", "theme": "dark"}` |
+| `/api/user/settings`         | PUT    | Update user account settings.              | `{ "notification": true, "theme": "dark" }`  | `{"message": "Settings updated successfully"}` |
+| `/api/portfolio/buy`         | POST   | Buy stocks and add them to the portfolio.  | `{ "symbol": "GOOG", "quantity": 5 }`        | `{"message": "Stocks bought and added to the portfolio"}` |
+| `/api/portfolio/sell`        | POST   | Sell stocks from the portfolio.            | `{ "symbol": "AAPL", "quantity": 3 }`        | `{"message": "Stocks sold from the portfolio"}` |
+| `/api/portfolio/transactions` | GET    | Get a list of all portfolio transactions.  | N/A | `{"transactions": [...], "totalTransactions": 10}` |
+| `/api/portfolio/transactions/:id` | GET | Get details of a specific transaction.     | N/A | `{"transaction": {...}}` |
+| `/api/news`                  | GET    | Fetch the latest financial news.            | N/A | `{"news": [...], "totalNews": 5}` |
+| `/api/notifications`         | GET    | Get user notifications.                    | N/A | `{"notifications": [...], "totalNotifications": 5}` |
+| `/api/notifications`         | POST   | Create a new notification.                 | `{ "message": "New stock added." }` | `{"message": "Notification created successfully"}` |
+| `/api/notifications/:id`     | DELETE | Delete a specific notification.           | N/A | `{"message": "Notification deleted successfully"}` |
+| `/api/watchlist`             | GET    | Get the user's stock watchlist.            | N/A | `{"watchlist": [...], "totalStocks": 5}` |
+| `/api/watchlist/add`         | POST   | Add a stock to the user's watchlist.       | `{ "symbol": "TSLA" }` | `{"message": "Stock added to the watchlist"}` |
+| `/api/watchlist/remove`      | POST   | Remove a stock from the watchlist.         | `{ "symbol": "TSLA" }` | `{"message": "Stock removed from the watchlist"}` |
+| `/api/settings`              | GET    | Get application settings.                  | N/A | `{"currency": "USD", "theme": "light"}` |
+| `/api/settings`              | PUT    | Update application settings.               | `{ "currency": "USD", "theme": "light" }`   | `{"message": "Settings updated successfully"}` |
+| `/api/portfolio/stats`       | GET    | Get overall portfolio statistics.          | N/A | `{"statistics": {...}}` |
+| `/api/portfolio/dividends`   | GET    | Get dividend income for the portfolio.     | N/A | `{"dividendIncome": 2500.00}` |
+| `/api/portfolio/roi`         | GET    | Get return on investment for the portfolio.| N/A | `{"roi": 10.25}` |
+| `/api/stocks/recommendations` | GET   | Get stock recommendations based on user preferences. | N/A | `{"recommendations": [...], "totalRecommendations": 5}` |
+| `/api/stocks/history/:symbol` | GET   | Get historical stock data for a specific symbol. | N/A | `{"history": [...], "symbol": "AAPL"}` |
+| `/api/stocks/news/:symbol`   | GET   | Get news related to a specific stock.      | N/A | `{"news": [...], "symbol": "AAPL"}` |
+| `/api/portfolio/alerts`      | GET    | Get portfolio alerts and notifications.   | N/A | `{"alerts": [...], "totalAlerts": 5}` |
+| `/api/portfolio/alerts`      | POST   | Create a new portfolio alert.             | `{ "symbol": "AAPL", "targetPrice": 150 }`   | `{"message": "Alert created successfully"}` |
+| `/api/portfolio/alerts/:id`  | PUT    | Update a portfolio alert.                 | `{ "targetPrice": 160 }`   | `{"message": "Alert updated successfully"}` |
+| `/api/portfolio/alerts/:id`  | DELETE | Delete a portfolio alert.                 | N/A | `{"message": "Alert deleted successfully"}` |
+| `/api/stocks/compare`        | POST   | Compare multiple stocks' performance.     | `{ "symbols": ["AAPL", "GOOG", "TSLA"] }`    | `{"comparison": {...}}` |
+| `/api/stocks/symbols`        | GET    | Get a list of available stock symbols.    | N/A | `{"symbols": ["AAPL", "GOOG", "TSLA"]}` |
+| `/api/portfolio/strategies`  | GET    | Get recommended investment strategies based on user preferences. | N/A | `{"strategies": [...], "totalStrategies": 5}` |
+| `/api/portfolio/strategies/:id` | GET  | Get details of a specific investment strategy. | N/A | `{"strategy": {...}}` |
+| `/api/portfolio/strategies`  | POST   | Create a custom investment strategy.       | `{ "name": "My Strategy", "description": "A custom investment strategy", "assets": ["AAPL", "GOOG"] }` | `{"message": "Strategy created successfully"}` |
+| `/api/portfolio/strategies/:id` | PUT  | Update a custom investment strategy.       | `{ "name": "Updated Strategy", "description": "An updated custom investment strategy" }` | `{"message": "Strategy updated successfully"}` |
+| `/api/portfolio/strategies/:id` | DELETE | Delete a custom investment strategy.     | N/A | `{"message": "Strategy deleted successfully"}` |
+| `/api/transactions`           | GET    | Get a list of all user transactions (buy/sell orders). | N/A | `{"transactions": [...], "totalTransactions": 10}` |
+| `/api/transactions/:id`       | GET    | Get details of a specific transaction.     | N/A | `{"transaction": {...}}` |
+| `/api/transactions/buy`       | POST   | Create a buy order for a stock.           | `{ "symbol": "AAPL", "quantity": 5 }`        | `{"message": "Buy order created successfully"}` |
+| `/api/transactions/sell`      | POST   | Create a sell order for a stock.          | `{ "symbol": "AAPL", "quantity": 3 }`        | `{"message": "Sell order created successfully"}` |
+| `/api/transactions/:id`       | DELETE | Cancel a pending transaction.             | N/A | `{"message": "Transaction canceled successfully"}` |
+| `/api/alerts`                  | GET    | Get user-specific alerts and notifications. | N/A | `{"alerts": [...], "totalAlerts": 5}` |
+| `/api/alerts/:id`              | GET    | Get details of a specific alert.           | N/A | `{"alert": {...}}` |
+| `/api/alerts`                  | POST   | Create a new alert or notification.       | `{ "type": "price", "symbol": "AAPL", "targetPrice": 150 }` | `{"message": "Alert created successfully"}` |
+| `/api/alerts/:id`              | PUT    | Update an existing alert.                 | `{ "type": "price", "targetPrice": 160 }`   | `{"message": "Alert updated successfully"}` |
+| `/api/alerts/:id`              | DELETE | Delete an alert or notification.          | N/A | `{"message": "Alert deleted successfully"}` |
+| `/api/transactions/history`    | GET    | Get historical transaction data.           | N/A | `{"history": [...], "totalTransactions": 10}` |
+| `/api/transactions/history/:id` | GET  | Get historical data for a specific transaction. | N/A | `{"transaction": {...}}` |
+| `/api/user/logout`             | POST   | Log the user out and invalidate the session. | N/A | `{"message": "User logged out successfully"}` |
+| `/api/user/forgot-password`    | POST   | Request a password reset email.            | `{ "email": "john@example.com" }` | `{"message": "Password reset email sent successfully"}` |
+| `/api/user/reset-password`     | POST   | Reset the user's password with a valid reset token. | `{ "token": "valid_token", "password": "newPassword123" }` | `{"message": "Password reset successfully"}` |
+| `/api/user/change-password`    | PUT    | Change the user's password.                | `{ "currentPassword": "oldPassword123", "newPassword": "newPassword123" }` | `{"message": "Password changed successfully"}` |
 
 ## Database Schema: StockPortfolio
 
