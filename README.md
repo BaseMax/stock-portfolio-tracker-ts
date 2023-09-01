@@ -315,6 +315,304 @@ npm run dev
 
 Access the application at `http://localhost:3000` in your web browser.
 
+## Database SQL
+
+```sql
+-- User Collection
+CREATE TABLE User (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    firstName VARCHAR(255),
+    lastName VARCHAR(255),
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP
+);
+
+-- Portfolio Collection
+CREATE TABLE Portfolio (
+    portfolio_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(255),
+    description TEXT,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- Stock Collection
+CREATE TABLE Stock (
+    stock_id SERIAL PRIMARY KEY,
+    symbol VARCHAR(10) NOT NULL,
+    name VARCHAR(255),
+    price DECIMAL(10, 2),
+    lastUpdated TIMESTAMP,
+    UNIQUE (symbol)
+);
+
+-- PortfolioStock Collection (Many-to-Many Relationship)
+CREATE TABLE PortfolioStock (
+    portfolioStock_id SERIAL PRIMARY KEY,
+    portfolio_id INT NOT NULL,
+    stock_id INT NOT NULL,
+    quantity INT NOT NULL,
+    purchasePrice DECIMAL(10, 2),
+    purchaseDate DATE,
+    FOREIGN KEY (portfolio_id) REFERENCES Portfolio(portfolio_id),
+    FOREIGN KEY (stock_id) REFERENCES Stock(stock_id)
+);
+
+-- Transaction Collection
+CREATE TABLE Transaction (
+    transaction_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    stock_id INT NOT NULL,
+    type VARCHAR(10) NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    transactionDate TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (stock_id) REFERENCES Stock(stock_id)
+);
+
+-- Notification Collection
+CREATE TABLE Notification (
+    notification_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    message TEXT,
+    createdAt TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- Watchlist Collection
+CREATE TABLE Watchlist (
+    watchlist_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- Alert Collection
+CREATE TABLE Alert (
+    alert_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    symbol VARCHAR(10) NOT NULL,
+    targetPrice DECIMAL(10, 2),
+    createdAt TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (symbol) REFERENCES Stock(symbol)
+);
+
+-- Strategy Collection
+CREATE TABLE Strategy (
+    strategy_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- AssetRecommendation Collection
+CREATE TABLE AssetRecommendation (
+    assetRecommendation_id SERIAL PRIMARY KEY,
+    strategy_id INT NOT NULL,
+    symbol VARCHAR(10) NOT NULL,
+    recommendationType VARCHAR(10) NOT NULL,
+    targetPrice DECIMAL(10, 2),
+    createdAt TIMESTAMP NOT NULL,
+    FOREIGN KEY (strategy_id) REFERENCES Strategy(strategy_id),
+    FOREIGN KEY (symbol) REFERENCES Stock(symbol)
+);
+
+-- Settings Collection
+CREATE TABLE Settings (
+    settings_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    currency VARCHAR(5),
+    theme VARCHAR(10),
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- TransactionHistory Collection
+CREATE TABLE TransactionHistory (
+    transactionHistory_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(10) NOT NULL,
+    symbol VARCHAR(10) NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    transactionDate TIMESTAMP NOT NULL,
+    notes TEXT,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (symbol) REFERENCES Stock(symbol)
+);
+
+-- DividendCollection
+CREATE TABLE Dividend (
+    dividend_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    stock_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    paymentDate DATE,
+    recordDate DATE,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (stock_id) REFERENCES Stock(stock_id)
+);
+
+-- ReturnOnInvestmentCollection
+CREATE TABLE ReturnOnInvestment (
+    roi_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    portfolio_id INT NOT NULL,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL,
+    roi DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (portfolio_id) REFERENCES Portfolio(portfolio_id)
+);
+
+-- StockComparisonCollection
+CREATE TABLE StockComparison (
+    comparison_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    comparisonDate TIMESTAMP NOT NULL,
+    results JSONB,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- StockSymbolCollection
+CREATE TABLE StockSymbol (
+    symbol_id SERIAL PRIMARY KEY,
+    symbol VARCHAR(10) NOT NULL,
+    name VARCHAR(255),
+    createdAt TIMESTAMP NOT NULL
+);
+
+-- PortfolioPerformanceCollection
+CREATE TABLE PortfolioPerformance (
+    performance_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    portfolio_id INT NOT NULL,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL,
+    initialValue DECIMAL(10, 2) NOT NULL,
+    finalValue DECIMAL(10, 2) NOT NULL,
+    percentageChange DECIMAL(5, 2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (portfolio_id) REFERENCES Portfolio(portfolio_id)
+);
+
+-- NewsArticleCollection
+CREATE TABLE NewsArticle (
+    article_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    publishedDate DATE,
+    source VARCHAR(255),
+    url VARCHAR(255),
+    createdAt TIMESTAMP NOT NULL
+);
+
+-- NotificationPreferencesCollection
+CREATE TABLE NotificationPreferences (
+    preferences_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    priceAlertsEnabled BOOLEAN,
+    newsAlertsEnabled BOOLEAN,
+    dividendAlertsEnabled BOOLEAN,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- StrategyAssetCollection
+CREATE TABLE StrategyAsset (
+    strategyAsset_id SERIAL PRIMARY KEY,
+    strategy_id INT NOT NULL,
+    symbol VARCHAR(10) NOT NULL,
+    weight DECIMAL(5, 2) NOT NULL,
+    FOREIGN KEY (strategy_id) REFERENCES Strategy(strategy_id),
+    FOREIGN KEY (symbol) REFERENCES Stock(symbol)
+);
+
+-- RecommendationCommentCollection
+CREATE TABLE RecommendationComment (
+    comment_id SERIAL PRIMARY KEY,
+    recommendation_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    createdAt TIMESTAMP NOT NULL,
+    FOREIGN KEY (recommendation_id) REFERENCES AssetRecommendation(assetRecommendation_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- PortfolioPerformance Collection
+CREATE TABLE PortfolioPerformance (
+    performance_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    portfolio_id INT NOT NULL,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL,
+    initialValue DECIMAL(10, 2) NOT NULL,
+    finalValue DECIMAL(10, 2) NOT NULL,
+    percentageChange DECIMAL(5, 2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (portfolio_id) REFERENCES Portfolio(portfolio_id)
+);
+
+-- NewsArticle Collection
+CREATE TABLE NewsArticle (
+    article_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    publishedDate DATE,
+    source VARCHAR(255),
+    url VARCHAR(255),
+    createdAt TIMESTAMP NOT NULL
+);
+
+-- NotificationPreferences Collection
+CREATE TABLE NotificationPreferences (
+    preferences_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    priceAlertsEnabled BOOLEAN,
+    newsAlertsEnabled BOOLEAN,
+    dividendAlertsEnabled BOOLEAN,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- StrategyAsset Collection
+CREATE TABLE StrategyAsset (
+    strategyAsset_id SERIAL PRIMARY KEY,
+    strategy_id INT NOT NULL,
+    symbol VARCHAR(10) NOT NULL,
+    weight DECIMAL(5, 2) NOT NULL,
+    FOREIGN KEY (strategy_id) REFERENCES Strategy(strategy_id),
+    FOREIGN KEY (symbol) REFERENCES Stock(symbol)
+);
+
+-- RecommendationComment Collection
+CREATE TABLE RecommendationComment (
+    comment_id SERIAL PRIMARY KEY,
+    recommendation_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    createdAt TIMESTAMP NOT NULL,
+    FOREIGN KEY (recommendation_id) REFERENCES AssetRecommendation(assetRecommendation_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+```
+
 ## Usage
 
 - Register a new user account or log in if you already have an account.
