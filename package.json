@@ -1,0 +1,20 @@
+{
+  "name": "stock-portfolio-tracker-ts",
+  "version": "1.0.0",
+  "description": "This repository contains a basic implementation of a stock portfolio tracker backend using Express.js and TypeScript. It includes features for user authentication, adding and removing stocks from the portfolio, real-time stock data retrieval using a financial data API, and tracking portfolio performance over time.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaseMax/stock-portfolio-tracker-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaseMax/stock-portfolio-tracker-ts/issues"
+  },
+  "homepage": "https://github.com/BaseMax/stock-portfolio-tracker-ts#readme"
+}
