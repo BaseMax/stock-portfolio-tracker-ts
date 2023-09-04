@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Application } from 'express';
 import helmet from 'helmet' ;
 import morgan from 'morgan';
 import logger from './utils/logger/logger';
@@ -23,3 +23,4 @@ import logger from './utils/logger/logger';
         logger.info(`app running on port ${port}`)
     })
 })()
+
