@@ -13,6 +13,55 @@ The Stock Portfolio Tracker is a web-based application that allows users to mana
 - **Historical Performance:** View historical performance charts of your portfolio.
 - **User-Friendly API:** Well-documented API for easy integration into other applications.
 
+
+## Demo 
+
+### Register : 
+
+![ demo ](./screenshots/register.png)
+
+
+
+### Login : 
+
+![ demo ](./screenshots/login.png)
+
+
+
+### Create protofilo : 
+
+![ demo ](./screenshots/createProtofilo.png)
+
+
+
+### Show protofilo :
+
+![ demo ](./screenshots/showProtofilo.png)
+
+
+
+### Create stock : 
+
+![ demo ](./screenshots/createStock.png)
+ 
+
+
+### Find stock : 
+
+![ demo ](./screenshots/findStock.png)
+
+
+
+### Add stock to protofilo 
+
+![ demo ](./screenshots/addStockToProtofilo.png)
+
+
+
+
+
+
+
 ## Getting Started
 
 - Prerequisites
