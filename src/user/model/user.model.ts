@@ -1,4 +1,5 @@
 import { genSalt, genSaltSync, hashSync } from 'bcrypt';
+import { Timestamp } from 'bson';
 import { Model, Schema, Types, model } from 'mongoose';
 
 interface IUser{
@@ -20,7 +21,7 @@ const userSchema = new Schema<IUser>({
     password : {
         type : String , 
         required : true , 
-        unique : true , 
+        select : false 
     } , 
     firstName : {
         type : String ,
@@ -29,8 +30,8 @@ const userSchema = new Schema<IUser>({
     lastName : {
         type : String , 
         required : true ,
-    }
-})
+    } , 
+},{timestamps : true})
 
 
 userSchema.pre('save' , async function(next){
