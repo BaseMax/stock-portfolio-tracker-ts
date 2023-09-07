@@ -28,8 +28,8 @@ import { databaseConnection } from './config/database.config';
 
     app.listen(port , ()=>{
         console.log(process.version)
-        databaseConnection()
         console.log(`app running on port ${port}`)
         logger.info(`app running on port ${port}`)
+        databaseConnection()
     })
 })()
