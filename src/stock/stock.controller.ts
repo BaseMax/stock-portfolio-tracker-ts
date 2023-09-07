@@ -37,7 +37,75 @@ const findStock = async (req:Request , res:Response)=>{
 }
 
 
+const findStockBySymbol =async (req:Request , res:Response) => {
+    const symbol = req.params.symbol ; 
+
+    const result = await Stock.find({symbol})
+
+    res.send(result);
+}
+
+
+const serachStockByName =async (req:Request , res:Response) => {
+    const name = req.params.name;
+    
+    const stock = await Stock.find({name})
+        .populate('user')
+        .exec()
+    
+    res.send(stock);
+}
+
+
+const findStockById = async (req:Request , res:Response)=>{
+    const id = req.params.id;
+    const user = req.user as IUser ; 
+    
+    const result = await Stock.findOne({
+        _id : id , 
+        user : user.id , 
+    })
+    .populate('user')
+    .exec()
+
+
+    if(!result){
+        return res.status(404).json({
+            message : 'Stock not found' , 
+            success : false 
+        })
+    }
+
+    res.json(result)
+}
+
+
+const removeStock = async (req:Request , res:Response) => {
+    const id = req.params.id ; 
+    const user = req.user as IUser
+    
+    const stock = await Stock.findOne({
+        _id: id , 
+        user : user.id ,
+    });
+
+    if(!stock){
+        return res.status(404).json({message : 'Stock not found'})
+    }
+
+    await Stock.findOneAndRemove(stock.id);
+
+    res.json({
+        message : "Item removed successfully" , 
+        sucess : true ,
+    })
+}
+
 export {
+    findStock ,
+    findStockById ,
+    findStockBySymbol , 
     createStock , 
-    findStock 
+    removeStock ,
+    serachStockByName ,
 }
