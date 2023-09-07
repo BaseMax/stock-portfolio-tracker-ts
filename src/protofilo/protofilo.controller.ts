@@ -26,6 +26,40 @@ const createProtofilo = async (req:Request,res:Response)=>{
 }
 
 
+const updateProtofilo = async (req:Request , res:Response) => {
+    const id = req.params.id ; 
+    const user = req.user as IUser ; 
+    const {
+        name , 
+        description , 
+    } = req.body ; 
+
+    const protofilo = await Protofilo.findOne({
+        _id : id , 
+        user : user.id , 
+    })
+
+    if(!protofilo){
+        return res.status(404).json({
+            message : 'Protofilo not found',
+            success : false , 
+        })
+    }
+
+    protofilo.description = description ;
+    protofilo.name = name ; 
+
+    const result = await protofilo.save()
+
+    console.log(result);
+
+
+    res.json({
+        message : 'Item edited successfully' , 
+        success : true , 
+    })
+}
+
 
 const findAllProtofilo = async (req:Request,res:Response)=>{
     const user = req.user as IUser
@@ -33,6 +67,28 @@ const findAllProtofilo = async (req:Request,res:Response)=>{
     .populate('user')
     .populate('stocks')
     .exec()
+
+    res.send(result) ; 
+}
+
+
+const findOneProtofilo = async (req:Request,res:Response)=>{
+    const id = req.params.id ; 
+    const user = req.user as IUser
+
+    const query = {
+        _id : id , 
+        user : user.id 
+    }
+
+    const result = await Protofilo.findOne(query)
+    .populate('user')
+    .populate('stocks')
+    .exec()
+
+    if(!result){
+        return res.status(404).json({message : 'Protofilo not found'})
+    }
 
     res.send(result) ; 
 }
@@ -104,9 +160,43 @@ const removeStockToProtofilo = async(req:Request ,res:Response)=>{
     })
 }
 
+
+const removeProtofilo = async (req:Request,res:Response) => {
+    const id = req.params.id ;
+    const user = req.user as IUser ; 
+
+
+    const protofilo = await Protofilo.findOne({
+        _id : id ,
+        user : user.id 
+    })
+
+
+    if(!protofilo){
+        return res.status(404).json({
+            message : 'Protofilo not found' ,
+        })
+    }
+
+    const query = {
+        _id : id ,
+        user : user.id  
+    }
+
+
+    await Protofilo.deleteOne(query);
+
+    res.json({
+        message : 'Item removed successfully'
+    })
+}
+
 export {
     createProtofilo , 
+    updateProtofilo , 
     findAllProtofilo , 
+    findOneProtofilo ,
+    removeProtofilo , 
     addStockToProtofilo , 
     removeStockToProtofilo , 
 }
