@@ -34,6 +34,24 @@ The Stock Portfolio Tracker is a web-based application that allows users to mana
 
 
 
+### Find one protofilo : 
+
+![ demo ](./screenshots/findOneProtofilo.png)
+
+
+
+### Update protofilo :
+
+![ demo ](./screenshots/updateProtofilo.png)
+
+
+
+### Remove protofilo :
+
+![ demo ](./screenshots/removeProtofilo.png)
+
+
+
 ### Show protofilo :
 
 ![ demo ](./screenshots/showProtofilo.png)
