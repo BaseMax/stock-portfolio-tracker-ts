@@ -11,11 +11,10 @@ import passport from 'passport';
 import mainRoutes from './routes';
 import { databaseConnection } from './config/database.config';
 
+const app = express()
+const port = process.env.PORT || 3001 ; 
 
 (()=>{
-    const app = express()
-    const port = process.env.PORT || 3001 ; 
-    
     app.use(express.static('public'));
     app.use(express.urlencoded({extended : true}));
     app.use(express.json());
@@ -33,3 +32,7 @@ import { databaseConnection } from './config/database.config';
         databaseConnection()
     })
 })()
+
+
+
+export {app}
