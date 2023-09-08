@@ -76,6 +76,21 @@ The Stock Portfolio Tracker is a web-based application that allows users to mana
 
 
 
+### Create setting
+
+![ demo ](./screenshots/createSetting.png)
+
+
+
+### Update setting
+
+![ demo ](./screenshots/updateSetting.png)
+
+
+
+### get Setting
+
+![ demo ](./screenshots/getSetting.png)
 
 
 
