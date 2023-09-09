@@ -33,11 +33,11 @@ const findStock = async (req:Request , res:Response)=>{
         .populate('user')
         .exec()
 
-    res.json(result)
+    res.send(result)
 }
 
 
-const findStockBySymbol =async (req:Request , res:Response) => {
+const findStockBySymbol = async (req:Request , res:Response) => {
     const symbol = req.params.symbol ; 
 
     const result = await Stock.find({symbol})
