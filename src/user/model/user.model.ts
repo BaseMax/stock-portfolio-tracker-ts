@@ -21,7 +21,6 @@ const userSchema = new Schema<IUser>({
     password : {
         type : String , 
         required : true , 
-        select : false 
     } , 
     firstName : {
         type : String ,
@@ -50,5 +49,7 @@ userSchema.pre('save' , async function(next){
     }
 })
 
-export const User = model<IUser>('User' , userSchema);
+const User = model<IUser>('User' , userSchema);
 
+
+export {User}
