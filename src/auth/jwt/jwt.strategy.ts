@@ -4,7 +4,7 @@ import { User } from "../../user/model/user.model";
 
 const jwtOpt = {
     jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken() , 
-    secretOrKey : process.env.JWT_SECRET_KEY as string 
+    secretOrKey : process.env.JWT_SECRET_KEY as string
 }
 
 passport.use(new Strategy(jwtOpt , async (payload , done)=>{
